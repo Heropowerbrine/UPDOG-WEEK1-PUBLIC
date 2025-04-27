@@ -56,7 +56,7 @@ class Main extends Sprite
 			FNFGame
 			#else
 			FlxGame
-			#end(startMeta.width, startMeta.height, #if !debug Splash #else startMeta.initialState #end, startMeta.fps, startMeta.fps, startMeta.skipSplash,
+			#end(startMeta.width, startMeta.height, #if (mobile && MODS_ALLOWED) CopyState.checkExistingFiles() ? CopyState #else Splash #end, startMeta.fps, startMeta.fps, startMeta.skipSplash,
 				startMeta.startFullScreen);
 
 		// FlxG.game._customSoundTray wants just the class, it calls new from
@@ -83,6 +83,11 @@ class Main extends Sprite
 		FlxG.mouse.visible = false;
 		#end
 
+		#if android FlxG.android.preventDefaultKeys = [BACK]; #end
+
+		LimeSystem.allowScreenTimeout = ClientPrefs.screensaver;
+		FlxG.scaleMode = new MobileScaleMode();
+
 		FlxG.signals.gameResized.add(onResize);
 
 		#if DISABLE_TRACES
@@ -95,7 +100,11 @@ class Main extends Sprite
 		final scale:Float = Math.max(1, Math.min(w / FlxG.width, h / FlxG.height));
 		if (fpsVar != null)
 		{
+			#if mobile
+			fpsVar.positionFPS(10, 3, Math.min(w / FlxG.width, h / FlxG.height));
+			#else
 			fpsVar.scaleX = fpsVar.scaleY = scale;
+			#end
 		}
 
 		if (FlxG.cameras != null)
