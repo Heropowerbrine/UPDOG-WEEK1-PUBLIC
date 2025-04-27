@@ -7,6 +7,8 @@ import flixel.FlxState;
 import openfl.Lib;
 import openfl.display.Sprite;
 import openfl.display.StageScaleMode;
+import lime.system.System as LimeSystem;
+import mobile.states.CopyState;
 
 class Main extends Sprite
 {
@@ -39,6 +41,13 @@ class Main extends Sprite
 	public function new()
 	{
 		super();
+		#if mobile
+ 		#if android
+ 		SUtil.requestPermissions();
+ 		#end
+ 		Sys.setCwd(SUtil.getStorageDirectory());
+ 		#end
+		mobile.backend.CrashHandler.init();
 
 		ClientPrefs.loadDefaultKeys();
 
@@ -60,7 +69,6 @@ class Main extends Sprite
 		game._customSoundTray = funkin.objects.FunkinSoundTray;
 		addChild(game);
 
-		#if !mobile
 		fpsVar = new DebugDisplay(10, 3, 0xFFFFFF);
 		addChild(fpsVar);
 		Lib.current.stage.align = "tl";
@@ -69,7 +77,6 @@ class Main extends Sprite
 		{
 			fpsVar.visible = ClientPrefs.showFPS;
 		}
-		#end
 
 		#if html5
 		FlxG.autoPause = false;
