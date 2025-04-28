@@ -38,9 +38,9 @@ jobs:
           echo "Checking for empty or broken .hx files..."
           find ./source -name "*.hx" -size -1k -print
           echo "Finished checking files."
-      - name: Compile
+      - name: Compile (Verbose Debug)
         run: |
-          haxelib run lime build android
+          haxelib run lime build android -debug -v --connect 6000
 
       - name: Upload Artifact
         uses: actions/upload-artifact@main
