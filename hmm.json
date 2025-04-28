@@ -4,8 +4,8 @@
             "name": "lime",
             "type": "git",
             "dir": null,   
-            "ref": "develop",
-            "url": "https://github.com/openfl/lime"   
+            "ref": "main",
+            "url": "https://github.com/MobilePorting/lime"   
         },
         {
             "name": "openfl",
@@ -73,13 +73,6 @@
             "dir": null,
             "ref": "70e7f5f3e76d526ac6fb8f0e6665efe7dfda589d",
             "url": "https://github.com/MAJigsaw77/hxvlc"
-        },
-        {
-            "name": "extension-androidtools",
-            "type": "git",
-            "dir": null,
-            "ref": "df9dfd0cda74e5460ae3afcfff1081c50959ed4a",
-            "url": "https://github.com/MAJigsaw77/extension-androidtools"
         },
         {
             "name": "hxCodec",
