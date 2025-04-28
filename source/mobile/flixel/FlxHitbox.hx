@@ -90,7 +90,7 @@ class FlxHitbox extends FlxSpriteGroup {
 			}
 		}
 		#if FLX_DEBUG
-		hint.ignoreDrawDebug = true;
+		button.ignoreDrawDebug = true;
 		#end
 		return button;
 	}
