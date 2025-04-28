@@ -33,28 +33,9 @@ jobs:
           haxelib run lime config JAVA_HOME $JAVA_HOME
           haxelib run lime config ANDROID_SETUP true 
 
-      - name: Check for broken .hx files
+      - name: Compile
         run: |
-          echo "Checking for empty or broken .hx files..."
-          find ./source -name "*.hx" -size -1k -print
-          echo "Finished checking files."
-
-      - name: Compile (Verbose Debug, save log)
-        run: |
-          haxelib run lime build android -debug -v 2>&1 | tee build.log
-
-      - name: Dump debug.hxml
-        if: always()
-        run: |
-          echo "=== debug.hxml contents ==="
-          sed -n '1,50p' export/debug/android/haxe/debug.hxml
-          echo "--- (end of snippet) ---"
-
-      - name: Find Last Parsed .hx File
-        if: failure()
-        run: |
-         echo "Finding last .hx file parsed before crash..."
-         grep "\.hx" $GITHUB_WORKSPACE/build.log | tail -n 20
+          haxelib run lime build android
 
       - name: Upload Artifact
         uses: actions/upload-artifact@main
