@@ -35,8 +35,7 @@ jobs:
 
       - name: Compile
         run: |
-          haxe -verbose -D HXCPP_DEBUG
-          haxelib run lime build android
+          haxelib run lime build android -verbose
 
       - name: Upload Artifact
         uses: actions/upload-artifact@main
