@@ -49,6 +49,7 @@ class Main extends Sprite
  		#end
 		mobile.backend.CrashHandler.init();
 
+		Splash.nextState = Init;
 		ClientPrefs.loadDefaultKeys();
 
 		final game = new
