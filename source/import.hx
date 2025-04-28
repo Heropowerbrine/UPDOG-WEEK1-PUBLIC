@@ -12,6 +12,7 @@ import flixel.util.FlxTimer;
 import flixel.FlxBasic;
 import flixel.math.FlxPoint;
 import flixel.sound.FlxSound;
+import flixel.util.FlxDestroyUtil;
 #if sys
 import sys.io.*;
 import sys.*;
