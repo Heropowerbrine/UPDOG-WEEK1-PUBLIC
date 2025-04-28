@@ -21,6 +21,9 @@ jobs:
         with:
           haxe-version: 4.3.6
 
+      - name: Lime clean
+        run: haxelib run lime clean
+
       - name: Install Libraries
         run: |
           haxelib install hmm --quiet
@@ -38,6 +41,12 @@ jobs:
           echo "Checking for empty or broken .hx files..."
           find ./source -name "*.hx" -size -1k -print
           echo "Finished checking files."
+      - name: Dump debug.hxml
+        if: always()
+        run: |
+          echo "=== debug.hxml contents ==="
+          sed -n '1,50p' export/debug/android/haxe/debug.hxml
+          echo "--- (end of snippet) ---"
       - name: Compile (Verbose Debug, save log)
         run: |
           haxelib run lime build android -debug -v | tee build.log
