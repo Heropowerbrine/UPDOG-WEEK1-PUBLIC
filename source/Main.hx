@@ -19,7 +19,7 @@ class Main extends Sprite
 	public static final startMeta = {
 		width: 1280,
 		height: 720,
-		initialState: Init,
+		initialState: Splash,
 		skipSplash: false,
 		startFullScreen: false,
 		fps: 60
@@ -51,21 +51,12 @@ class Main extends Sprite
 
 		ClientPrefs.loadDefaultKeys();
 
-		var startingState:Class<FlxState> = Splash;
-		#if mobile
-		#if MODS_ALLOWED
-		if (CopyState.checkExistingFiles()) {
-		 startingState = CopyState;
-		}
-		#end
-		#end
-
 		final game = new
 			#if CRASH_HANDLER
 			FNFGame
 			#else
 			FlxGame
-			#end(startMeta.width, startMeta.height, startingState, startMeta.fps, startMeta.fps, startMeta.skipSplash,
+			#end(startMeta.width, startMeta.height, #if (mobile && MODS_ALLOWED) CopyState.checkExistingFiles() ? startMeta.initialState : CopyState #else startMeta.initialState #end, startMeta.fps, startMeta.fps, startMeta.skipSplash,
 				startMeta.startFullScreen);
 
 		// FlxG.game._customSoundTray wants just the class, it calls new from
