@@ -34,7 +34,7 @@ class Paths
 	/**
 	 * Mod directory
 	 */
-	inline public static final MODS_DIRECTORY = #if ASSET_REDIRECT #if macos '../../../../../../../content' #else '../../../../content' #end #else Sys.getCwd() + 'content' #end;
+	inline public static final MODS_DIRECTORY = #if ASSET_REDIRECT #if macos '../../../../../../../content' #else '../../../../content' #end #else 'content' #end;
 	
 	inline public static var SOUND_EXT = #if web "mp3" #else "ogg" #end;
 	inline public static var VIDEO_EXT = "mp4";
@@ -528,7 +528,7 @@ class Paths
 	#if MODS_ALLOWED
 	inline static public function mods(key:String = '')
 	{
-		return '$MODS_DIRECTORY/' + key;
+		return #if mobile Sys.getCwd() + #end '$MODS_DIRECTORY/' + key;
 	}
 	
 	inline static public function modsFont(key:String)
@@ -598,7 +598,7 @@ class Paths
 			var fileToCheck:String = mods(mod + '/' + key);
 			if (FileSystem.exists(fileToCheck)) return fileToCheck;
 		}
-		return '$MODS_DIRECTORY/' + key;
+		return #if mobile Sys.getCwd() + #end '$MODS_DIRECTORY/' + key;
 	}
 	
 	public static var globalMods:Array<String> = [];
