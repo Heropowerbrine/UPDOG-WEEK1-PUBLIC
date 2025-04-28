@@ -4898,7 +4898,6 @@ class PlayState extends MusicBeatState
 		super.startOutro(onOutroComplete);
 	}
 
-	#if desktop
 	function getPresence()
 	{
 		// Get the discord presence
@@ -4907,6 +4906,5 @@ class PlayState extends MusicBeatState
                 
 
 	}
-        #end
 
 }
