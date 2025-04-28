@@ -1,16 +1,18 @@
 {
     "dependencies": [
         {
-            "name": "lime",
-            "type": "git",
-            "dir": null,   
-            "ref": "main",
-            "url": "https://github.com/MobilePorting/lime"   
+          "name": "lime",
+          "type": "git",
+          "dir": null,
+          "ref": "main",
+          "url": "https://github.com/MobilePorting/lime-sword.git"
         },
         {
-            "name": "openfl",
-            "type": "haxelib",
-            "version": null
+          "name": "openfl",
+          "type": "git",
+          "dir": null,
+          "ref": "develop",
+          "url": "https://github.com/swordcubes-grave-of-shite/openfl"
         },
         {
             "name": "hxcpp-debug-server",
@@ -34,17 +36,19 @@
             "type": "haxelib",
             "version": null
         },
-        {  
-            "name": "flixel",
-            "type": "git",
-            "dir": null,
-            "ref": "5.8.0",
-            "url": "https://github.com/MobilePorting/flixel"
+        {
+          "name": "flixel",
+          "type": "git",
+          "dir": null,
+          "ref": "dev",
+          "url": "https://github.com/swordcubes-grave-of-shite/flixel"
         },
         {
-            "name": "flixel-addons",
-            "type": "haxelib",
-            "version": null
+          "name": "flixel-addons",
+          "type": "git",
+          "dir": null,
+          "ref": "dev",
+          "url": "https://github.com/swordcubes-grave-of-shite/flixel-addons"
         },
         {
             "name": "flixel-ui",
