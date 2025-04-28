@@ -51,14 +51,14 @@ class Main extends Sprite
 
 		ClientPrefs.loadDefaultKeys();
 
-		/*var startingState:Class<FlxState> = Splash;
+		var startingState:Class<FlxState> = Splash;
 		#if mobile
 		#if MODS_ALLOWED
 		if (CopyState.checkExistingFiles()) {
 		 startingState = CopyState;
 		}
 		#end
-		#end*/
+		#end
 
 		final game = new
 			#if CRASH_HANDLER
