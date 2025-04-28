@@ -4898,13 +4898,13 @@ class PlayState extends MusicBeatState
 		super.startOutro(onOutroComplete);
 	}
 
-	function getPresence()
+	/*function getPresence()
 	{
 		// Get the discord presence
 		
 		return ClientPrefs.disc_rpc ? SONG.song : FlxG.random.getObject(DiscordClient.discordPresences);
                 
 
-	}
+	}*/
 
 }
