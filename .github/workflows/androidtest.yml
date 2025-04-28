@@ -23,7 +23,6 @@ jobs:
 
       - name: Install Libraries
         run: |
-          haxe -verbose -D HXCPP_DEBUG
           haxelib install hmm --quiet
           haxelib run hmm install --quiet
 
@@ -36,6 +35,7 @@ jobs:
 
       - name: Compile
         run: |
+          haxe -verbose -D HXCPP_DEBUG
           haxelib run lime build android
 
       - name: Upload Artifact
