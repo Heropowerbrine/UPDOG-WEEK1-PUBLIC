@@ -38,7 +38,7 @@
 	<!-- _____________________________ Path Settings ____________________________ -->
 
 	<!-- Use project assets folder instead of the build one if on a debug build. -->
-	<define name="ASSET_REDIRECT" if="debug"/>
+	<define name="ASSET_REDIRECT" if="desktop"/>
 
 	<!--<define name="RELEASE_BUILD"/>-->
 
