@@ -43,6 +43,13 @@ jobs:
         run: |
           haxelib run lime build android -debug -v 2>&1 | tee build.log
 
+      - name: Dump debug.hxml
+        if: always()
+        run: |
+          echo "=== debug.hxml contents ==="
+          sed -n '1,50p' export/debug/android/haxe/debug.hxml
+          echo "--- (end of snippet) ---"
+
       - name: Find Last Parsed .hx File
         if: failure()
         run: |
