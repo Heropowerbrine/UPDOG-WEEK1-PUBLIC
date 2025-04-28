@@ -15,6 +15,11 @@ import flixel.util.FlxSave;
 @:build(funkin.backend.macro.SaveMacro.buildSaveVars('im gonna make this do smth later okay just not rn'))
 class ClientPrefs
 {
+	//Mobile ------------------------------------------------------------------------//
+	@saveVar public static var screensaver:Bool = false;
+	@saveVar public static var controlsAlpha:Float = 0.7;
+	@saveVar public static var hideHitboxHints:Bool = false;
+	
 	// impostor ------------------------------------------------------------------------//
 
 	@saveVar public static var language:String = 'english';
