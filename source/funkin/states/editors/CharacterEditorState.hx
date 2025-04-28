@@ -27,7 +27,7 @@ import openfl.events.Event;
 import openfl.events.IOErrorEvent;
 import haxe.Json;
 import funkin.objects.Character;
-import flixel.system.debug.interaction.tools.Pointer;
+import flixel.system.debug.interaction.tools.Pointer.GraphicCursorCross;
 import lime.system.Clipboard;
 import flixel.animation.FlxAnimation;
 import funkin.objects.*;
