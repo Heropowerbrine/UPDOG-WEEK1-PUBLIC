@@ -18,6 +18,7 @@ class ClientPrefs
 	//Mobile ------------------------------------------------------------------------//
 	@saveVar public static var screensaver:Bool = false;
 	@saveVar public static var controlsAlpha:Float = 0.7;
+	@saveVar public static var wideScreen:Bool = false;
 	@saveVar public static var hideHitboxHints:Bool = false;
 	
 	// impostor ------------------------------------------------------------------------//
