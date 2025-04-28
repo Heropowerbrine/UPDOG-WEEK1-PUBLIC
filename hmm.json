@@ -41,7 +41,7 @@
           "type": "git",
           "dir": null,
           "ref": "dev",
-          "url": "https://github.com/swordcubes-grave-of-shite/flixel"
+          "url": "https://github.com/HaxeFlixel/flixel"
         },
         {
           "name": "flixel-addons",
