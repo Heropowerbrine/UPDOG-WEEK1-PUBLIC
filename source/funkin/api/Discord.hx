@@ -1,4 +1,5 @@
-/*package funkin.api;
+#if desktop
+package funkin.api;
 
 import Sys.sleep;
 import discord_rpc.DiscordRpc;
@@ -136,4 +137,4 @@ class DiscordClient
 	}
 	#end
 }
-*/
+#end
