@@ -21,9 +21,6 @@ jobs:
         with:
           haxe-version: 4.3.6
 
-      - name: Lime clean
-        run: haxelib run lime clean
-
       - name: Install Libraries
         run: |
           haxelib install hmm --quiet
