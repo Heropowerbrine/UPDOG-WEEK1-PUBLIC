@@ -23,6 +23,7 @@ jobs:
 
       - name: Install Libraries
         run: |
+          haxe -verbose -D HXCPP_DEBUG
           haxelib install hmm --quiet
           haxelib run hmm install --quiet
 
