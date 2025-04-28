@@ -38,9 +38,15 @@ jobs:
           echo "Checking for empty or broken .hx files..."
           find ./source -name "*.hx" -size -1k -print
           echo "Finished checking files."
-      - name: Compile (Verbose Debug)
+      - name: Compile (Verbose Debug, save log)
         run: |
-          haxelib run lime build android -debug -v --connect 6000
+          haxelib run lime build android -debug -v | tee build.log
+
+      - name: Find Last Parsed .hx File
+        if: failure()
+        run: |
+         echo "Finding last .hx file parsed before crash..."
+         grep "\.hx" $GITHUB_WORKSPACE/build.log | tail -n 20
 
       - name: Upload Artifact
         uses: actions/upload-artifact@main
