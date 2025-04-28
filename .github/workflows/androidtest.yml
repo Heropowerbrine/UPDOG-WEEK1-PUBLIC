@@ -6,26 +6,32 @@ on:
 jobs:
   Android:
     runs-on: ubuntu-latest
+
     steps:
+      
       - name: Checkout
         uses: actions/checkout@main
 
+      
       - name: Setup Java JDK
         uses: actions/setup-java@main
         with:
           distribution: 'temurin'
           java-version: '17'
 
+      
       - name: Setup Haxe
         uses: krdlab/setup-haxe@master
         with:
           haxe-version: 4.3.6
 
+      
       - name: Install Libraries
         run: |
           haxelib install hmm --quiet
           haxelib run hmm install --quiet
 
+      
       - name: Configure Android
         run: |
           haxelib run lime config ANDROID_SDK $ANDROID_HOME
@@ -33,9 +39,19 @@ jobs:
           haxelib run lime config JAVA_HOME $JAVA_HOME
           haxelib run lime config ANDROID_SETUP true 
 
-      - name: Compile
+      # Decrypt the keystore
+      - name: Decrypt Keystore
         run: |
-          haxelib run lime build android
+          echo ${{ secrets.ENCRYPTION_PASSWORD }} | openssl enc -aes-256-cbc -d -in keystore/-key.keystore.enc -out -key.keystore -pass stdin
+
+      # Compile with signing
+      - name: Compile with Signing
+        run: |
+          haxelib run lime build android -Dandroid-debug \
+          -PkeyAlias=${{ secrets.KEY_ALIAS }} \
+          -PkeyPassword=${{ secrets.KEY_PASSWORD }} \
+          -PkeystorePassword=${{ secrets.KEYSTORE_PASSWORD }} \
+          -PkeystoreFile=-key.keystore
 
       - name: Upload Artifact
         uses: actions/upload-artifact@main
