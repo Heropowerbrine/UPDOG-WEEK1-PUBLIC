@@ -87,6 +87,7 @@
 	<haxelib name="flixel-ui"/>
 	<haxelib name="flixel-tools"/>
 	<haxelib name="flxanimate"/>
+	<haxelib name="extension-androidtools" if="android" />
 	
 	<haxelib name="hscript"/>
 	<haxelib name="hscript-iris"/>
