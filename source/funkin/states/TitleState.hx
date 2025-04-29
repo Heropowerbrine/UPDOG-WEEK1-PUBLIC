@@ -85,14 +85,12 @@ class TitleState extends MusicBeatState
 		[55.7, 500.5, 'SK', 'Skins'],
 		[172.1, 500.5, 'SH', 'Shop']
 	];
-
-	var bPressCount:Int = 0;
-	var bTimer:Float = 0;
-	var bPressedTwice:Bool = false;
 	
 	var secretKey:Array<FlxKey> = [FlxKey.D, FlxKey.K];
 	var lastKeysPressed:Array<FlxKey> = [];
 	var keyTimer:Float = 0;
+
+	var secretTriggered:Bool = false;
 	
 	function selectedOption()
 	{
@@ -417,19 +415,6 @@ class TitleState extends MusicBeatState
 						FlxG.mouse.visible = false;
 					});
 				}
-
-				#if mobile
-				//the secret to unlocking the secret in mobile
-			    	if (_virtualpad.buttonB.justPressed) {
-			        	if (bPressCount == 0) {
-			            		bPressCount = 1;
-			            		bTimer = 1;
-			        	} else {
-			            		bPressCount = 0;
-			            		bPressedTwice = true;
-			        	}
-			    	}
-			    	#end
 				
 				final finalKey:FlxKey = FlxG.keys.firstJustPressed();
 				
@@ -470,14 +455,6 @@ class TitleState extends MusicBeatState
 						FlxG.sound.play(Paths.sound('loud'));
 					}
 				}
-
-				#if mobile
-				if (bTimer > 0)
-			    	{
-			        	bTimer -= elapsed;
-			        	if (bTimer <= 0) bPressCount = 0;
-			    	}
-			    	#end
 				
 				if (keyTimer > 0)
 				{
@@ -518,6 +495,11 @@ class TitleState extends MusicBeatState
 					if (controls.ACCEPT #if mobile || _virtualpad.buttonA.justPressed #end)
 					{
 						selectedOption();
+					}
+					if (_virtualpad.buttonB.justPressed && !secretTriggered)
+					{
+					    doSecretAction();
+					    secretTriggered = true;
 					}
 				}
 			}
