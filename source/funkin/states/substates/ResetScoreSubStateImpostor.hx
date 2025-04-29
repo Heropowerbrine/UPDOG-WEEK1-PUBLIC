@@ -106,7 +106,11 @@ class ResetScoreSubStateImpostor extends MusicBeatSubstate
 				}
 			}
 			FlxG.sound.play(Paths.sound('cancelMenu'), 1);
+			#if mobile
+			closeSs();
+			#else
 			close();
+                        #end
 		}
 		super.update(elapsed);
 	}
