@@ -182,6 +182,9 @@ class StoryMenuState extends MusicBeatState
 		}
 		
 		reloadSongList();
+		#if mobile
+		addVirtualPad(FULL,A_B_C_X_Y);
+		#end
 		super.create();
 	}
 	
@@ -263,16 +266,16 @@ class StoryMenuState extends MusicBeatState
 		scoreText.text = "Score: " + FlxStringUtil.formatMoney(lerpScore, false, true);
 		if (!selectedWeek)
 		{
-			if (controls.UI_LEFT_P) changeWeek(-1);
-			if (controls.UI_RIGHT_P) changeWeek(1);
-			if (FlxG.keys.justPressed.E || FlxG.keys.justPressed.Q) changeDiff();
-			if (controls.ACCEPT) selectWeek();
-			if (controls.BACK) 
+			if (controls.UI_LEFT_P #if mobile || _virtualpad.buttonLeft.justPressed #end) changeWeek(-1);
+			if (controls.UI_RIGHT_P #if mobile || _virtualpad.buttonRight.justPressed #end) changeWeek(1);
+			if (FlxG.keys.justPressed.E || FlxG.keys.justPressed.Q #if mobile || _virtualpad.buttonY.justPressed || _virtualpad.buttonC.justPressed #end) changeDiff();
+			if (controls.ACCEPT #if mobile || _virtualpad.buttonA.justPressed #end) selectWeek();
+			if (controls.BACK #if mobile || _virtualpad.buttonB.justPressed #end) 
 			{
 				FlxG.switchState(new TitleState());
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 			}
-			if (FlxG.keys.justPressed.R) 
+			if (FlxG.keys.justPressed.R #if mobile || _virtualpad.buttonX.justPressed #end) 
 			{
 				persistentUpdate = false;
 				openSubState(new ResetScoreSubStateImpostor('', curDiff, curWeek));
