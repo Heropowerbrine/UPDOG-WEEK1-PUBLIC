@@ -182,10 +182,10 @@ class StoryMenuState extends MusicBeatState
 		}
 		
 		reloadSongList();
+		super.create();
 		#if mobile
 		addVirtualPad(LEFT_RIGHT,A_B_C_X_Y);
 		#end
-		super.create();
 	}
 	
 	function nahFuckOff()
