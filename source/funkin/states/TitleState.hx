@@ -85,6 +85,10 @@ class TitleState extends MusicBeatState
 		[55.7, 500.5, 'SK', 'Skins'],
 		[172.1, 500.5, 'SH', 'Shop']
 	];
+
+	var bPressCount:Int = 0;
+	var bTimer:Float = 0;
+	var bPressedTwice:Bool = false;
 	
 	var secretKey:Array<FlxKey> = [FlxKey.D, FlxKey.K];
 	var lastKeysPressed:Array<FlxKey> = [];
@@ -413,6 +417,19 @@ class TitleState extends MusicBeatState
 						FlxG.mouse.visible = false;
 					});
 				}
+
+				#if mobile
+				//the secret to unlocking the secret in mobile
+			    	if (_virtualpad.buttonB.justPressed) {
+			        	if (bPressCount == 0) {
+			            		bPressCount = 1;
+			            		bTimer = 1;
+			        	} else {
+			            		bPressCount = 0;
+			            		bPressedTwice = true;
+			        	}
+			    	}
+			    	#end
 				
 				final finalKey:FlxKey = FlxG.keys.firstJustPressed();
 				
@@ -440,10 +457,7 @@ class TitleState extends MusicBeatState
 					
 					if (checkForMatch(secretKey)) // dk
 					{
-						insert(members.indexOf(lg) - 1, tv);
-						FlxG.sound.play(Paths.sound('confirmMenu'));
-						FlxTween.tween(tv, {alpha: 1}, 2, {ease: FlxEase.linear});
-						FlxG.mouse.visible = true;
+						doSecretAction();
 						
 						secretKey = []; // prevents from doing multiple times
 					}
@@ -456,6 +470,13 @@ class TitleState extends MusicBeatState
 						FlxG.sound.play(Paths.sound('loud'));
 					}
 				}
+
+				if (bTimer > 0)
+			    	{
+			        	bTimer -= elapsed;
+			        	if (bTimer <= 0) bPressCount = 0;
+			    	}
+			    	#end
 				
 				if (keyTimer > 0)
 				{
@@ -469,15 +490,15 @@ class TitleState extends MusicBeatState
 				
 				if (canSelect)
 				{
-					if (controls.UI_DOWN_P)
+					if (controls.UI_DOWN_P #if mobile || _virtualpad.buttonDown.justPressed #end)
 					{
 						changeSel(1, 1);
 					}
-					if (controls.UI_UP_P)
+					if (controls.UI_UP_P #if mobile || _virtualpad.buttonUp.justPressed #end)
 					{
 						changeSel(-1, 1);
 					}
-					if (controls.UI_RIGHT_P)
+					if (controls.UI_RIGHT_P #if mobile || _virtualpad.buttonRight.justPressed #end)
 					{
 						if (curSel == 3)
 						{
@@ -485,7 +506,7 @@ class TitleState extends MusicBeatState
 							changeSel(0, 1);
 						}
 					}
-					if (controls.UI_LEFT_P)
+					if (controls.UI_LEFT_P #if mobile || _virtualpad.buttonLeft.justPressed #end)
 					{
 						if (curSel == 4)
 						{
@@ -493,7 +514,7 @@ class TitleState extends MusicBeatState
 							changeSel(0, 1);
 						}
 					}
-					if (controls.ACCEPT)
+					if (controls.ACCEPT #if mobile || _virtualpad.buttonA.justPressed #end)
 					{
 						selectedOption();
 					}
@@ -522,6 +543,14 @@ class TitleState extends MusicBeatState
 		}
 		
 		super.update(elapsed);
+	}
+
+	function doSecretAction():Void
+	{
+	    insert(members.indexOf(lg) - 1, tv);
+	    FlxG.sound.play(Paths.sound('confirmMenu'));
+	    FlxTween.tween(tv, {alpha: 1}, 2, {ease: FlxEase.linear});
+	    FlxG.mouse.visible = true;
 	}
 	
 	function moveShitUp(tt:Float = 1)
