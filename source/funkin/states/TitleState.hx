@@ -393,6 +393,11 @@ class TitleState extends MusicBeatState
 			// IF CAN PRESS ON THING
 			if (transitioning)
 			{
+				#if mobile
+				if (_virtualpad == null) {
+					addVirtualPad(FULL, A_B);
+				}
+				#end
 				if (FlxG.mouse.justPressed && members.indexOf(tv) != -1 && tv.overlapsPoint(FlxG.mouse.getWorldPosition()))
 				{
 					tv.animation.play('on');
