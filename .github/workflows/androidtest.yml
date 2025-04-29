@@ -44,18 +44,13 @@ jobs:
         run: |
           echo ${{ secrets.ENCRYPTION_PASSWORD }} | openssl enc -aes-256-cbc -d -in -key.keystore.enc -out -key.keystore -pass stdin
 
-      # Compile with signing
-      - name: Compile with Signing
+      - name: Compile
         run: |
-          haxelib run lime build android -Dandroid-debug \
-          -PkeyAlias=${{ secrets.KEY_ALIAS }} \
-          -PkeyPassword=${{ secrets.KEY_PASSWORD }} \
-          -PkeystorePassword=${{ secrets.KEYSTORE_PASSWORD }} \
-          -PkeystoreFile=-key.keystore
+          haxelib run lime build android
 
       - name: Upload Artifact
         uses: actions/upload-artifact@main
         with:
           name: androidBuild
-          path: export/release/android/bin/app/build/outputs/apk/debug/*.apk
+          path: export/release/android/bin/app/build/outputs/apk/release/*.apk
           if-no-files-found: error
