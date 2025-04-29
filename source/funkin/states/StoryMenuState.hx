@@ -183,7 +183,7 @@ class StoryMenuState extends MusicBeatState
 		
 		reloadSongList();
 		#if mobile
-		addVirtualPad(FULL,A_B_C_X_Y);
+		addVirtualPad(LEFT_RIGHT,A_B_C_X_Y);
 		#end
 		super.create();
 	}
@@ -343,5 +343,9 @@ class StoryMenuState extends MusicBeatState
 		persistentUpdate = true;
 		changeWeek();
 		super.closeSubState();
+		#if mobile
+		removeVirtualPad();
+		addVirtualPad(LEFT_RIGHT,A_B_C_X_Y);
+		#end
 	}
 }
