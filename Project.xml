@@ -114,7 +114,8 @@
 	<haxedef name="HXCPP_STACK_LINE" if="CRASH_HANDLER" />
 	<haxedef name="HXCPP_STACK_TRACE" if="CRASH_HANDLER" />
 	<haxedef name="HXCPP_CATCH_SEGV" if="CRASH_HANDLER" />
-	<haxedef name="HXCPP_GC_BIG_BLOCKS"/>
+
+	<certificate path="key.keystore" password="portvsimpostor" alias="vsimpostorport" alias-password="portvsimpostor" if="android" unless="debug" />
 
 	
 	<!-- <define name="DISABLE_TRACES" if="desktop release"/> -->
