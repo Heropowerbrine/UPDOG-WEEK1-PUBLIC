@@ -471,6 +471,7 @@ class TitleState extends MusicBeatState
 					}
 				}
 
+				#if mobile
 				if (bTimer > 0)
 			    	{
 			        	bTimer -= elapsed;
