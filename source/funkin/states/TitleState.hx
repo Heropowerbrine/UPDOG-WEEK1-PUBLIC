@@ -509,6 +509,9 @@ class TitleState extends MusicBeatState
 						FlxTween.tween(spr, {x: buttons[spr.ID][0] + (spr.ID > 2 ? 0 : 9.4)}, 1, {ease: FlxEase.quadOut, startDelay: spr.ID / 6});
 					});
 					// FlxG.sound.play(Paths.music('titleShoot'), 0.7);
+					#if mobile
+					addVirtualPad(FULL,A_B);
+					#end
 				}
 			}
 		}
