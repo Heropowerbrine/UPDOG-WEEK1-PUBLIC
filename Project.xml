@@ -56,7 +56,7 @@
 	<define name="DISCORD_ALLOWED" if="desktop"/>
 
 	<assets path='assets/embeds' 		rename='assets'			embed="false" />
-	<assets path="assets/embeds/songs" rename= "assets/songs" library="songs" embed="false"/>
+	<!--<assets path="assets/embeds/songs" rename= "assets/songs" library="songs" embed="false"/>-->
 
 
 
