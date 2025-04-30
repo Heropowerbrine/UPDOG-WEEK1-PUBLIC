@@ -1631,6 +1631,7 @@ class PlayState extends MusicBeatState
 	
 	function generateSong(dataPath:String):Void
 	{
+		trace("Yo, generate song part 1!");
 		songSpeedType = ClientPrefs.getGameplaySetting('scrolltype', 'Multiplicative');
 		
 		songSpeed = SONG.speed;
@@ -1642,17 +1643,24 @@ class PlayState extends MusicBeatState
 			case "constant":
 				songSpeed = ClientPrefs.getGameplaySetting('scrollspeed', 1);
 		}
+
+		trace("Ok done, now part 2 that will be split into multiple parts cos I'm insecure about this part!!!");
 		
 		var songData = SONG;
+		trace("done");
 		Conductor.bpm = songData.bpm;
+		trace("done again");
 		
 		curSong = songData.song;
-		
+		trace("done once again");
+
 		Paths.inst(PlayState.SONG.song);
-		
+
+		trace("Nice we got the inst, now vocals");
 		vocals = new VocalGroup();
 		add(vocals);
-		
+
+		trace("Now to see if we need voices");
 		if (SONG.needsVoices)
 		{
 			var playerSound = Paths.voices(PlayState.SONG.song, 'player');
@@ -1667,22 +1675,28 @@ class PlayState extends MusicBeatState
 		
 		vocals.volume = 0;
 		FlxG.sound.music.volume = 0;
-		
+
+		trace("Ok, now we setonhscripts for the vocals and inst");
 		setOnHScripts('vocals', vocals);
 		setOnHScripts('inst', FlxG.sound.music);
-		
+
+		trace("Nice, now let's add notes");
 		notes = new FlxTypedGroup<Note>();
 		add(notes);
-		
+
+		trace("Let's see the note data");
 		var noteData:Array<SwagSection>;
 		
 		// NEW SHIT
 		noteData = songData.notes;
+
+		trace("If that worked we're at playercounter and dabeats now");
 		
 		var playerCounter:Int = 0;
 		
 		var daBeats:Int = 0; // Not exactly representative of 'daBeats' lol, just how much it has looped
-		
+
+		trace("Now to load note types!!");
 		// loads note types
 		for (section in noteData)
 		{
@@ -1698,6 +1712,8 @@ class PlayState extends MusicBeatState
 				}
 			}
 		}
+
+		trace("Ok still notetypes i think");
 		
 		for (notetype in noteTypeMap.keys())
 		{
@@ -1737,7 +1753,8 @@ class PlayState extends MusicBeatState
 				}
 			}
 		}
-		
+
+		trace("Now we load da events");
 		// loads events
 		for (event in getEvents())
 		{
@@ -1747,7 +1764,8 @@ class PlayState extends MusicBeatState
 				firstEventPush(event);
 			}
 		}
-		
+
+		trace("more event stuff");
 		for (event in eventPushedMap.keys())
 		{
 			var doPush:Bool = false;
@@ -1787,7 +1805,8 @@ class PlayState extends MusicBeatState
 				}
 			}
 		}
-		
+
+		trace("subevents?");
 		for (subEvent in getEvents())
 		{
 			subEvent.strumTime -= eventNoteEarlyTrigger(subEvent);
@@ -1798,9 +1817,11 @@ class PlayState extends MusicBeatState
 		{ // No need to sort if there's a single one or none at all
 			eventNotes.sort(sortByTime);
 		}
-		
+
+		trace("Ok now speedchanges");
 		speedChanges.sort(svSort);
-		
+
+		trace("Note arrays start here!");
 		var lastBFNotes:Array<Note> = [null, null, null, null];
 		var lastDadNotes:Array<Note> = [null, null, null, null];
 		// Should populate these w/ nulls depending on keycount -neb
@@ -1958,16 +1979,18 @@ class PlayState extends MusicBeatState
 			}
 			daBeats += 1;
 		}
+		trace("I hope that works cos that is long and it would suck if that's what causes the error");
 		lastDadNotes = null;
 		lastBFNotes = null;
-		
+		trace("Ok now to unspawn notes");
 		// trace(unspawnNotes.length);
 		// playerCounter += 1;
 		
 		unspawnNotes.sort(sortByShit);
-		
+		trace("Ok last part: checkeventnote!");
 		checkEventNote();
 		generatedMusic = true;
+		trace("If this runs, this means it's fixed!");
 	}
 	
 	public function getNoteInitialTime(time:Float)
