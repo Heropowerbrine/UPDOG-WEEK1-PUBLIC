@@ -648,22 +648,13 @@ class PlayState extends MusicBeatState
 		startCharacterPos(boyfriend);
 		boyfriendGroup.add(boyfriend);
 		startCharacterScripts(boyfriend.curCharacter, boyfriend);
-		trace("About to set BF: " + SONG.player1);
 		boyfriendMap.set(boyfriend.curCharacter, boyfriend);
-		trace("Successfully set BF.");
-
-		trace("Setting up dad scripts.");
-		setOnScripts('dad', dad);
-		trace("Now group dad scripts.");
-		setOnScripts('dadGroup', dadGroup);
-		trace("Successfully set dad scripts.");
-
-		trace("Setting up BF scripts.");
-		setOnScripts('boyfriend', boyfriend);
-		trace("Now group BF scripts.");
-		setOnScripts('boyfriendGroup', boyfriendGroup);
-		trace("Successfully set BF scripts.");
 		
+		setOnScripts('dad', dad);
+		setOnScripts('dadGroup', dadGroup);
+		
+		setOnScripts('boyfriend', boyfriend);
+		setOnScripts('boyfriendGroup', boyfriendGroup);
 		
 		var camPos:FlxPoint = new FlxPoint(girlfriendCameraOffset[0], girlfriendCameraOffset[1]);
 		if (gf != null)
@@ -685,75 +676,55 @@ class PlayState extends MusicBeatState
 				if (gf != null) gf.visible = false;
 			}
 		 */
-
-		trace("Making a flashSprite or something");
+		
 		flashSprite = new FlxSprite(0, 0).makeGraphic(1280, 720, 0xFFb30000);
 		flashSprite.alpha = 0;
 		flashSprite.cameras = [camOther];
 		add(flashSprite);
 		setOnScripts('flashSprite', flashSprite);
-		trace("Finished with flashSprite lol");
 		
 		Conductor.songPosition = -5000;
-
-		trace("Doing a strumLine?");
+		
 		strumLine = new FlxSprite(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, 50);
 		strumLine.visible = false;
 		strumLine.scrollFactor.set();
-		trace("The strumLine might be ready now");
 		
 		// temp
 		updateTime = true;
-
-		trace("Idk, playFields getting ready");
+		
 		playFields = new FlxTypedGroup<PlayField>();
 		add(playFields);
 		add(grpNoteCovers);
 		add(grpNoteSplashes);
-		trace("playFields are now ready");
-
-		trace("Setting up HUDs, I'm really suspicious about this one");
+		
 		playHUD = new funkin.huds.SusHUD(this);
 		insert(members.indexOf(playFields), playHUD); // Data told me to do this
 		playHUD.cameras = [camHUD];
-		trace("I assume this means HUDs are set up");
-
-		trace("Note splashes now");
+		
 		var splash:NoteSplash = new NoteSplash(100, 100, 0);
 		grpNoteSplashes.add(splash);
 		splash.alpha = 0.0;
-		trace("Ok now sustains");
 		
 		var cover:NoteSustainCover = new NoteSustainCover(100, 100, 0);
 		grpNoteCovers.add(cover);
 		cover.alpha = 0.0;
-		trace("Sustains are done");
-
-		trace("Getting metadata song");
-		meta = Metadata.getSong();
-		trace("Ok they got the song, now generating?");
 		
+		meta = Metadata.getSong();
 		
 		generateSong(SONG.song);
-		trace("Ok generated, now modManager");
 		modManager = new ModManager(this);
-		trace("Now I will setonHScripts with the modManager");
 		setOnHScripts("modManager", modManager);
-		trace("Ok, if this works it will do notetypemap stuff now");
 		
 		noteTypeMap.clear();
 		noteTypeMap = null;
-		trace("Ok now eventPushedMap stuff");
 		eventPushedMap.clear();
 		eventPushedMap = null;
-		trace("Great now camFollow stuff");
 		
 		// After all characters being loaded, it makes then invisible 0.01s later so that the player won't freeze when you change characters
 		// add(strumLine);
 		
 		camFollow = new FlxPoint();
 		camFollowPos = new FlxObject(0, 0, 1, 1);
-		trace("Now to use the camFollow and Pos");
 		
 		snapCamFollowToPos(camPos.x, camPos.y);
 		if (prevCamFollow != null)
@@ -767,50 +738,39 @@ class PlayState extends MusicBeatState
 			prevCamFollowPos = null;
 		}
 		add(camFollowPos);
-		trace("camFollowPos has been added");
 		
 		FlxG.camera.follow(camFollowPos, LOCKON, 1);
 		// FlxG.camera.setScrollBounds(0, FlxG.width, 0, FlxG.height);
 		FlxG.camera.zoom = defaultCamZoom;
 		FlxG.camera.focusOn(camFollow);
-		trace("More camera stuff done, why is there so many of this");
 		
 		FlxG.worldBounds.set(0, 0, FlxG.width, FlxG.height);
-		trace("World bounds have been set");
-
-		trace("Now for the fixedTimestep to be false and to move a camerasection");
+		
 		FlxG.fixedTimestep = false;
 		moveCameraSection();
-
-		trace("Now to setup the botplay text");
+		
 		botplayTxt = new FlxText(400, 525, FlxG.width - 800, "BOTPLAY", 32);
 		botplayTxt.setFormat(Paths.font("liber.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		botplayTxt.scrollFactor.set();
 		botplayTxt.borderSize = 1.25;
 		botplayTxt.visible = cpuControlled;
 		add(botplayTxt);
-
-		trace("Now for remaining cameras, if it didnt crash before this the problem is definitely here");
 		
 		playFields.cameras = [camHUD];
 		grpNoteSplashes.cameras = [camHUD];
 		grpNoteCovers.cameras = [camHUD];
 		notes.cameras = [camHUD];
 		botplayTxt.cameras = [camHUD];
-
-		trace("More scripts?");
+		
 		setOnScripts('playFields', playFields);
 		setOnScripts('grpNoteSplashes', grpNoteSplashes);
 		setOnScripts('grpNoteCovers', grpNoteCovers);
 		setOnScripts('notes', notes);
 		setOnScripts('botplayTxt', botplayTxt);
 		callOnLuas('onCreate', []);
-		trace("Scripts are done!");
 
 		addHitbox(3);
    		_hitbox.visible = false;
-
-		trace("Yo hitbox is set up so maybe the song is working rn!");
 		
 		startingSong = true;
 		
@@ -1631,7 +1591,6 @@ class PlayState extends MusicBeatState
 	
 	function generateSong(dataPath:String):Void
 	{
-		trace("Yo, generate song part 1!");
 		songSpeedType = ClientPrefs.getGameplaySetting('scrolltype', 'Multiplicative');
 		
 		songSpeed = SONG.speed;
@@ -1643,24 +1602,17 @@ class PlayState extends MusicBeatState
 			case "constant":
 				songSpeed = ClientPrefs.getGameplaySetting('scrollspeed', 1);
 		}
-
-		trace("Ok done, now part 2 that will be split into multiple parts cos I'm insecure about this part!!!");
 		
 		var songData = SONG;
-		trace("done");
 		Conductor.bpm = songData.bpm;
-		trace("done again");
 		
 		curSong = songData.song;
-		trace("done once again");
-
+		
 		Paths.inst(PlayState.SONG.song);
-
-		trace("Nice we got the inst, now vocals");
+		
 		vocals = new VocalGroup();
 		add(vocals);
-
-		trace("Now to see if we need voices");
+		
 		if (SONG.needsVoices)
 		{
 			var playerSound = Paths.voices(PlayState.SONG.song, 'player');
@@ -1675,28 +1627,22 @@ class PlayState extends MusicBeatState
 		
 		vocals.volume = 0;
 		FlxG.sound.music.volume = 0;
-
-		trace("Ok, now we setonhscripts for the vocals and inst");
+		
 		setOnHScripts('vocals', vocals);
 		setOnHScripts('inst', FlxG.sound.music);
-
-		trace("Nice, now let's add notes");
+		
 		notes = new FlxTypedGroup<Note>();
 		add(notes);
-
-		trace("Let's see the note data");
+		
 		var noteData:Array<SwagSection>;
 		
 		// NEW SHIT
 		noteData = songData.notes;
-
-		trace("If that worked we're at playercounter and dabeats now");
 		
 		var playerCounter:Int = 0;
 		
 		var daBeats:Int = 0; // Not exactly representative of 'daBeats' lol, just how much it has looped
-
-		trace("Now to load note types!!");
+		
 		// loads note types
 		for (section in noteData)
 		{
@@ -1712,8 +1658,6 @@ class PlayState extends MusicBeatState
 				}
 			}
 		}
-
-		trace("Ok still notetypes i think");
 		
 		for (notetype in noteTypeMap.keys())
 		{
@@ -1753,8 +1697,7 @@ class PlayState extends MusicBeatState
 				}
 			}
 		}
-
-		trace("Now we load da events");
+		
 		// loads events
 		for (event in getEvents())
 		{
@@ -1764,8 +1707,7 @@ class PlayState extends MusicBeatState
 				firstEventPush(event);
 			}
 		}
-
-		trace("more event stuff");
+		
 		for (event in eventPushedMap.keys())
 		{
 			var doPush:Bool = false;
@@ -1805,8 +1747,7 @@ class PlayState extends MusicBeatState
 				}
 			}
 		}
-
-		trace("subevents?");
+		
 		for (subEvent in getEvents())
 		{
 			subEvent.strumTime -= eventNoteEarlyTrigger(subEvent);
@@ -1817,11 +1758,9 @@ class PlayState extends MusicBeatState
 		{ // No need to sort if there's a single one or none at all
 			eventNotes.sort(sortByTime);
 		}
-
-		trace("Ok now speedchanges");
+		
 		speedChanges.sort(svSort);
-
-		trace("Note arrays start here!");
+		
 		var lastBFNotes:Array<Note> = [null, null, null, null];
 		var lastDadNotes:Array<Note> = [null, null, null, null];
 		// Should populate these w/ nulls depending on keycount -neb
@@ -1979,18 +1918,16 @@ class PlayState extends MusicBeatState
 			}
 			daBeats += 1;
 		}
-		trace("I hope that works cos that is long and it would suck if that's what causes the error");
 		lastDadNotes = null;
 		lastBFNotes = null;
-		trace("Ok now to unspawn notes");
+		
 		// trace(unspawnNotes.length);
 		// playerCounter += 1;
 		
 		unspawnNotes.sort(sortByShit);
-		trace("Ok last part: checkeventnote!");
+		
 		checkEventNote();
 		generatedMusic = true;
-		trace("If this runs, this means it's fixed!");
 	}
 	
 	public function getNoteInitialTime(time:Float)
