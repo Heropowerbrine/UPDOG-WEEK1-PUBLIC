@@ -728,23 +728,32 @@ class PlayState extends MusicBeatState
 		grpNoteCovers.add(cover);
 		cover.alpha = 0.0;
 		trace("Sustains are done");
-		
+
+		trace("Getting metadata song");
 		meta = Metadata.getSong();
+		trace("Ok they got the song, now generating?");
+		
 		
 		generateSong(SONG.song);
+		trace("Ok generated, now modManager");
 		modManager = new ModManager(this);
+		trace("Now I will setonHScripts with the modManager");
 		setOnHScripts("modManager", modManager);
+		trace("Ok, if this works it will do notetypemap stuff now");
 		
 		noteTypeMap.clear();
 		noteTypeMap = null;
+		trace("Ok now eventPushedMap stuff");
 		eventPushedMap.clear();
 		eventPushedMap = null;
+		trace("Great now camFollow stuff");
 		
 		// After all characters being loaded, it makes then invisible 0.01s later so that the player won't freeze when you change characters
 		// add(strumLine);
 		
 		camFollow = new FlxPoint();
 		camFollowPos = new FlxObject(0, 0, 1, 1);
+		trace("Now to use the camFollow and Pos");
 		
 		snapCamFollowToPos(camPos.x, camPos.y);
 		if (prevCamFollow != null)
@@ -758,23 +767,30 @@ class PlayState extends MusicBeatState
 			prevCamFollowPos = null;
 		}
 		add(camFollowPos);
+		trace("camFollowPos has been added");
 		
 		FlxG.camera.follow(camFollowPos, LOCKON, 1);
 		// FlxG.camera.setScrollBounds(0, FlxG.width, 0, FlxG.height);
 		FlxG.camera.zoom = defaultCamZoom;
 		FlxG.camera.focusOn(camFollow);
+		trace("More camera stuff done, why is there so many of this");
 		
 		FlxG.worldBounds.set(0, 0, FlxG.width, FlxG.height);
-		
+		trace("World bounds have been set");
+
+		trace("Now for the fixedTimestep to be false and to move a camerasection");
 		FlxG.fixedTimestep = false;
 		moveCameraSection();
-		
+
+		trace("Now to setup the botplay text");
 		botplayTxt = new FlxText(400, 525, FlxG.width - 800, "BOTPLAY", 32);
 		botplayTxt.setFormat(Paths.font("liber.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		botplayTxt.scrollFactor.set();
 		botplayTxt.borderSize = 1.25;
 		botplayTxt.visible = cpuControlled;
 		add(botplayTxt);
+
+		trace("Now for remaining cameras, if it didnt crash before this the problem is definitely here");
 		
 		playFields.cameras = [camHUD];
 		grpNoteSplashes.cameras = [camHUD];
