@@ -17,8 +17,8 @@ function onLoad() {
 
     var bytes = Assets.getBytes('assets/videos/banana.mp4');
     
-    video = new FunkinVideoSprite(200,0).preload(bytes, [FunkinVideoSprite.MUTED]);
-  	add(video);
+    //video = new FunkinVideoSprite(200,0).preload(bytes, [FunkinVideoSprite.MUTED]);
+  	//add(video);
     
     var bg:FlxSprite = new FlxSprite(0, 0);
     bg.loadGraphic(Paths.image(ext + "sky"));
@@ -118,13 +118,13 @@ function postModifierRegister()
 
 function onCreatePost()
 {   
-    video.cameras = [camHUD];
+    /*video.cameras = [camHUD];
   	video.onReady.addOnce(()->{
         video.setGraphicSize(0,722);
  		video.updateHitbox();
   		video.screenCenter(FlxAxes.X);
  
-  	});
+  	});*/
 
     game.playHUD.showRating = false;
     game.playHUD.showCombo = false;
@@ -145,7 +145,7 @@ function onSpawnNotePost(note:Note) // No longer need to modify clientprefs for 
 function onSongStart()
 {
     FlxTween.tween(blackSprite, {alpha: 0}, 0.05, {ease: FlxEase.linear, startDelay: 0.05});
-    video.playVideo();
+    //video.playVideo();
 }
 
 function onDestroy()
@@ -163,11 +163,11 @@ function onEvent(eventName, value1, value2)
             {
                 case 'dk':
                     FlxG.camera.zoom -= 0.1;
-                    FlxTween.tween(video, {alpha: 0}, 0.6, {ease: FlxEase.linear, onComplete: function() 
+                    /*FlxTween.tween(video, {alpha: 0}, 0.6, {ease: FlxEase.linear, onComplete: function() 
                     {
                         video.alpha = 0;
                         FlxTween.tween(ohioSprite, {alpha: 0}, 0.3, {ease: FlxEase.linear});
-                    }});                       
+                    }});*/                       
             }
         case 'camTween':
 			if (value1 == '')
