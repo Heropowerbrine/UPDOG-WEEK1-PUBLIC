@@ -177,7 +177,11 @@ class ControlsSubState extends MusicBeatSubstate
 			if (controls.BACK #if mobile || _virtualpad.buttonB.justPressed #end)
 			{
 				ClientPrefs.reloadControls();
-				close();
+				#if mobile
+ 			        closeSs();
+ 			        #else
+ 			        close();
+ 			        #end
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 			}
 			
