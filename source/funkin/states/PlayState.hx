@@ -648,13 +648,22 @@ class PlayState extends MusicBeatState
 		startCharacterPos(boyfriend);
 		boyfriendGroup.add(boyfriend);
 		startCharacterScripts(boyfriend.curCharacter, boyfriend);
+		trace("About to set BF: " + SONG.player1);
 		boyfriendMap.set(boyfriend.curCharacter, boyfriend);
-		
+		trace("Successfully set BF.");
+
+		trace("Setting up dad scripts.");
 		setOnScripts('dad', dad);
+		trace("Now group dad scripts.");
 		setOnScripts('dadGroup', dadGroup);
-		
+		trace("Successfully set dad scripts.");
+
+		trace("Setting up BF scripts.");
 		setOnScripts('boyfriend', boyfriend);
+		trace("Now group BF scripts.");
 		setOnScripts('boyfriendGroup', boyfriendGroup);
+		trace("Successfully set BF scripts.");
+		
 		
 		var camPos:FlxPoint = new FlxPoint(girlfriendCameraOffset[0], girlfriendCameraOffset[1]);
 		if (gf != null)
