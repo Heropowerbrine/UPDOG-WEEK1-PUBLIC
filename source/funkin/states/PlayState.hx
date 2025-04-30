@@ -685,38 +685,49 @@ class PlayState extends MusicBeatState
 				if (gf != null) gf.visible = false;
 			}
 		 */
-		
+
+		trace("Making a flashSprite or something");
 		flashSprite = new FlxSprite(0, 0).makeGraphic(1280, 720, 0xFFb30000);
 		flashSprite.alpha = 0;
 		flashSprite.cameras = [camOther];
 		add(flashSprite);
 		setOnScripts('flashSprite', flashSprite);
+		trace("Finished with flashSprite lol");
 		
 		Conductor.songPosition = -5000;
-		
+
+		trace("Doing a strumLine?");
 		strumLine = new FlxSprite(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, 50);
 		strumLine.visible = false;
 		strumLine.scrollFactor.set();
+		trace("The strumLine might be ready now");
 		
 		// temp
 		updateTime = true;
-		
+
+		trace("Idk, playFields getting ready");
 		playFields = new FlxTypedGroup<PlayField>();
 		add(playFields);
 		add(grpNoteCovers);
 		add(grpNoteSplashes);
-		
+		trace("playFields are now ready");
+
+		trace("Setting up HUDs, I'm really suspicious about this one");
 		playHUD = new funkin.huds.SusHUD(this);
 		insert(members.indexOf(playFields), playHUD); // Data told me to do this
 		playHUD.cameras = [camHUD];
-		
+		trace("I assume this means HUDs are set up");
+
+		trace("Note splashes now");
 		var splash:NoteSplash = new NoteSplash(100, 100, 0);
 		grpNoteSplashes.add(splash);
 		splash.alpha = 0.0;
+		trace("Ok now sustains");
 		
 		var cover:NoteSustainCover = new NoteSustainCover(100, 100, 0);
 		grpNoteCovers.add(cover);
 		cover.alpha = 0.0;
+		trace("Sustains are done");
 		
 		meta = Metadata.getSong();
 		
@@ -770,16 +781,20 @@ class PlayState extends MusicBeatState
 		grpNoteCovers.cameras = [camHUD];
 		notes.cameras = [camHUD];
 		botplayTxt.cameras = [camHUD];
-		
+
+		trace("More scripts?");
 		setOnScripts('playFields', playFields);
 		setOnScripts('grpNoteSplashes', grpNoteSplashes);
 		setOnScripts('grpNoteCovers', grpNoteCovers);
 		setOnScripts('notes', notes);
 		setOnScripts('botplayTxt', botplayTxt);
 		callOnLuas('onCreate', []);
+		trace("Scripts are done!");
 
 		addHitbox(3);
    		_hitbox.visible = false;
+
+		trace("Yo hitbox is set up so maybe the song is working rn!");
 		
 		startingSong = true;
 		
