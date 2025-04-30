@@ -1,6 +1,11 @@
 import funkin.states.substates.GameOverSubstate;
 
-function onLoad()
+function onCreate()
 {
-    GameOverSubstate.camOffset = [-350,-350];
- }
+    trace("bfdiddy script loaded");
+
+    // Delay setting the camOffset to ensure GameOverSubstate is ready
+    game.addScriptCallback(function() {
+        GameOverSubstate.camOffset = [-350, -350];
+    });
+}
