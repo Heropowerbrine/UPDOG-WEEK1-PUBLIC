@@ -118,7 +118,7 @@
 	<haxedef name="HXCPP_CATCH_SEGV" if="CRASH_HANDLER" />
 
 	<!--using a custom keystore so people don't have to keep uninstalling when the mod updates -->
-	<!--<certificate path="-key.keystore" password="portvsimpostor" alias="vsimpostorport" alias-password="portvsimpostor" if="android" unless="debug" />-->
+	<certificate path="-key.keystore" password="portvsimpostor" alias="vsimpostorport" alias-password="portvsimpostor" if="android" unless="debug" />
 
 	
 	<!-- <define name="DISABLE_TRACES" if="desktop release"/> -->
