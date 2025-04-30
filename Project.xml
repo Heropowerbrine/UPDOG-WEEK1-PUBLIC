@@ -96,6 +96,8 @@
 	<haxelib name="discord_rpc" if="DISCORD_ALLOWED"/>
 	<haxelib name="hxvlc" if="VIDEOS_ALLOWED"/>
 
+	<haxelib name="hxcpp-debug-server" if="debug"/>
+
 
 	<!-- ______________________________ macros _____________________________ -->
 
