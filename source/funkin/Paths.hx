@@ -71,50 +71,63 @@ class Paths
 		'$CORE_DIRECTORY/shared/music/tea-time.$SOUND_EXT',
 	];
 	
-	public static function clearUnusedMemory()
-	{
+	public static function clearUnusedMemory() {
 		// clear non local assets in the tracked assets list
-		for (key in currentTrackedAssets.keys())
-		{
+		for (key in currentTrackedAssets.keys()) {
 			// if it is not currently contained within the used local assets
-			if (!localTrackedAssets.contains(key) && !dumpExclusions.contains(key))
-			{
-				disposeGraphic(currentTrackedAssets.get(key));
-				currentTrackedAssets.remove(key);
+			if (!localTrackedAssets.contains(key) && !dumpExclusions.contains(key)) {
+				var obj = currentTrackedAssets.get(key);
+				@:privateAccess
+				if (obj != null) {
+					// remove the key from all cache maps
+					FlxG.bitmap._cache.remove(key);
+					openfl.Assets.cache.removeBitmapData(key);
+					currentTrackedAssets.remove(key);
+
+					// and get rid of the object
+					obj.persist = false; // make sure the garbage collector actually clears it up
+					obj.destroyOnNoUse = true;
+					obj.destroy();
+				}
 			}
 		}
+
 		// run the garbage collector for good measure lmfao
 		System.gc();
 		#if cpp
-		cpp.vm.Gc.compact();
+		cpp.NativeGc.run(true);
 		#end
 	}
 	
 	// define the locally tracked assets
 	public static var localTrackedAssets:Array<String> = [];
 	
-	public static function clearStoredMemory()
-	{
+	public static function clearStoredMemory() {
 		// clear anything not in the tracked assets list
 		@:privateAccess
 		for (key in FlxG.bitmap._cache.keys())
 		{
-			if (!currentTrackedAssets.exists(key)) disposeGraphic(FlxG.bitmap.get(key));
-		}
-		
-		// clear all sounds that are cached
-		for (key in currentTrackedSounds.keys())
-		{
-			if (!localTrackedAssets.contains(key) && !dumpExclusions.contains(key) && key != null)
+			var obj = FlxG.bitmap._cache.get(key);
+			if (obj != null && !currentTrackedAssets.exists(key))
 			{
-				// trace('test: ' + dumpExclusions, key);
+				openfl.Assets.cache.removeBitmapData(key);
+				FlxG.bitmap._cache.remove(key);
+				obj.destroy();
+			}
+		}
+
+		// clear all sounds that are cached
+		for (key => asset in currentTrackedSounds)
+		{
+			if (!localTrackedAssets.contains(key) && !dumpExclusions.contains(key) && asset != null)
+			{
 				Assets.cache.clear(key);
 				currentTrackedSounds.remove(key);
 			}
 		}
 		// flags everything to be cleared out next unused memory clear
 		localTrackedAssets = [];
-		openfl.Assets.cache.clear("songs");
+		#if !html5 openfl.Assets.cache.clear("songs"); #end
 	}
 	
 	/**
