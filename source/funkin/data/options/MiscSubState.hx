@@ -62,7 +62,7 @@ class MiscSubState extends BaseOptionsMenu
 		addOption(option);
 
 		var option:Option = new Option('Extra Hitbox Hints',
-		    'If checked, adds extra hitbox hints that permanently stay on your screen',
+		    'If checked, adds extra hitbox hints that permanently stay on your screen(only works if hide hitbox hints is switched off)',
 		    'ExtraHints',
 		    'bool',
 		    false);
