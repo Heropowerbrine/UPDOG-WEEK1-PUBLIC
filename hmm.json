@@ -9,10 +9,8 @@
         },
         {
             "name": "openfl",
-            "type": "git",
-            "dir": null,
-            "ref": "develop",
-            "url": "https://github.com/swordcubes-grave-of-shite/openfl"
+            "type": "haxelib",
+            "version": null
         },
         {
             "name": "hxcpp-debug-server",
