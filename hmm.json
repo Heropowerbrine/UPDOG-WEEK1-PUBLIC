@@ -38,10 +38,8 @@
         },
         {  
             "name": "flixel",
-            "type": "git",
-            "dir": null,
-            "ref": "217475d",
-            "url": "https://github.com/swordcubes-grave-of-shite/flixel"
+            "type": "haxelib",
+            "version": 6.0.0
         },
         {
             "name": "flixel-addons",
