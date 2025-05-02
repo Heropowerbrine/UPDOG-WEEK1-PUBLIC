@@ -61,6 +61,13 @@ class MiscSubState extends BaseOptionsMenu
 		    false);
 		addOption(option);
 
+		var option:Option = new Option('Extra Hitbox Hints',
+		    'If checked, adds extra hitbox hints that permanently stay on your screen',
+		    'ExtraHints',
+		    'bool',
+		    false);
+		addOption(option);
+
 		super();
 	}
 	function onChangeFPSCounter()
