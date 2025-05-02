@@ -29,12 +29,15 @@ class FlxHitbox extends FlxSpriteGroup {
 	public function new(?type:Int = 3) {
 		super();
 		hitbox = new FlxSpriteGroup();
+		hints = new FlxSpriteGroup();
 		
 		var keyCount:Int = type + 1;
 		var hitboxWidth:Int = Math.floor(FlxG.width / keyCount);
 		for (i in 0 ... keyCount) {
 			hitbox.add(add(array[i] = createhitbox(hitboxWidth * i, 0, hitboxWidth, FlxG.height, hitboxColor[keyCount][i])));
       array[i].stringIDs = ['${type}_key_${keyCount}'];
+		if (ClientPrefs.data.ExtraHints)
+			    hints.add(add(createHints(hitboxWidth * i, 0, hitboxWidth, FlxG.height, hitboxColor[keyCount][i])));
 		}
 	}
 
@@ -95,19 +98,6 @@ class FlxHitbox extends FlxSpriteGroup {
 		return button;
 	}
 
-	// Function to update hitbox dimensions dynamically
-        public function updateHitboxDimensions(width:Float, height:Float):Void {
-    var keyCount:Int = array.length; // Total number of hitboxes
-    var hitboxWidth:Int = Math.floor(width / keyCount); // New width for each hitbox
-
-    for (i in 0 ... keyCount) {
-        array[i].width = hitboxWidth;  // Update each hitbox width
-        array[i].height = height;      // Update each hitbox height
-        array[i].x = hitboxWidth * i;  // Set the x position based on the new width
-        array[i].updateHitbox();       // Ensure the hitbox is updated after size change
-    }
-	}
-
 	override public function destroy():Void {
 		super.destroy();
 		for (hbox in array) {
@@ -132,5 +122,23 @@ class FlxHitbox extends FlxSpriteGroup {
 		var bitmap:BitmapData = new BitmapData(Width, Height, true, 0);
 		bitmap.draw(shape);
 		return bitmap;
+	}
+	public function createHints(x:Float = 0, y:Float = 0, width:Int, height:Int, color:Int) {
+		var shape:Shape = new Shape();
+		shape.graphics.beginFill(0xFFFFFF);
+		shape.graphics.lineStyle(3, 0xFFFFFF, 1);
+		shape.graphics.drawRect(0, 0, width, height);
+		shape.graphics.lineStyle(0, 0, 0);
+		shape.graphics.drawRect(3, 3, width - 6, height - 6);
+		shape.graphics.endFill();
+		
+		var bitmap:BitmapData = new BitmapData(width, height, true, 0);
+		bitmap.draw(shape);
+ 
+        var hintSpr:FlxSprite = new FlxSprite(x, y, bitmap);
+		hintSpr.updateHitbox();
+		hintSpr.color = color;
+
+		return hintSpr;
 	}
 }
