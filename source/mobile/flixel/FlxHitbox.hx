@@ -11,6 +11,7 @@ import openfl.display.Shape;
 
 class FlxHitbox extends FlxSpriteGroup {
 	public var hitbox:FlxSpriteGroup;
+	public var hints:FlxSpriteGroup;
 
 	public var array:Array<FlxButton> = [];
 
@@ -36,7 +37,7 @@ class FlxHitbox extends FlxSpriteGroup {
 		for (i in 0 ... keyCount) {
 			hitbox.add(add(array[i] = createhitbox(hitboxWidth * i, 0, hitboxWidth, FlxG.height, hitboxColor[keyCount][i])));
       array[i].stringIDs = ['${type}_key_${keyCount}'];
-		if (ClientPrefs.data.ExtraHints)
+		if (ClientPrefs.ExtraHints)
 			    hints.add(add(createHints(hitboxWidth * i, 0, hitboxWidth, FlxG.height, hitboxColor[keyCount][i])));
 		}
 	}
