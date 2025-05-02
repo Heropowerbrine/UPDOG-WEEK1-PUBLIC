@@ -5,7 +5,7 @@
             "type": "git",
             "dir": null,   
             "ref": "main",
-            "url": "https://github.com/MobilePorting/lime-sword.git"   
+            "url": "https://github.com/MobilePorting/lime"   
         },
         {
             "name": "openfl",
